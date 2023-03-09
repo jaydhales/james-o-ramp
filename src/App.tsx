@@ -65,7 +65,10 @@ export function App() {
               return
             }
 
-            await loadTransactionsByEmployee(newValue.id)
+            // Bug 4 solutions: Load all transaction when the user selects 'All Employees'
+            if (newValue.id === "") {
+              await loadAllTransactions()
+            } else await loadTransactionsByEmployee(newValue.id)
           }}
         />
 
