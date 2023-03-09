@@ -77,7 +77,8 @@ export function App() {
         <div className="RampGrid">
           <Transactions transactions={transactions} />
 
-          {transactions !== null && (
+          {/* Bug 6 solution: View more button will not load if paginatedTransaction or nextPage is null */}
+          {transactions && paginatedTransactions?.nextPage && (
             <button
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading}
