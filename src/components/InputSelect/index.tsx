@@ -92,7 +92,8 @@ export function InputSelect<TItem>({
             return null
           }
 
-          if (isLoading) {
+          // Bug 5 solution: For loadingLabel to be returned, employees must be empty
+          if (isLoading && items.length === 0) {
             return <div className="RampInputSelect--dropdown-item">{loadingLabel}...</div>
           }
 
