@@ -17,4 +17,4 @@ export type DropdownPosition = {
 
 export type InputSelectOnChange<TItem> = (selectedItem: TItem | null) => void
 
-export type GetDropdownPositionFn = (target: EventTarget) => DropdownPosition
+export type GetDropdownPositionFn = (target: EventTarget | null) => DropdownPosition

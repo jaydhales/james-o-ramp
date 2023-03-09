@@ -1,5 +1,5 @@
 import Downshift from "downshift"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import classNames from "classnames"
 import { DropdownPosition, GetDropdownPositionFn, InputSelectOnChange, InputSelectProps } from "./types"
 
@@ -17,6 +17,7 @@ export function InputSelect<TItem>({
     top: 0,
     left: 0,
   })
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const onChange = useCallback<InputSelectOnChange<TItem>>(
     (selectedItem) => {
@@ -29,6 +30,13 @@ export function InputSelect<TItem>({
     },
     [consumerOnChange]
   )
+
+  // Get dropdown Position when screen width changes
+  useEffect(() => {
+    if (dropdownRef.current) {
+      window.onresize = () => setDropdownPosition(getDropdownPosition(dropdownRef.current))
+    }
+  }, [dropdownPosition])
 
   return (
     <Downshift<TItem>
@@ -62,6 +70,7 @@ export function InputSelect<TItem>({
                 setDropdownPosition(getDropdownPosition(event.target))
                 toggleProps.onClick(event)
               }}
+              ref={dropdownRef}
             >
               {inputValue}
             </div>
